@@ -195,8 +195,9 @@ task :cruby_tests do
     test_dir = Pathname("#{__dir__}/../test/cruby/test")
     files = %w[
       benchmark/test_benchmark.rb
-      ruby/test_call.rb
       opal/test_keyword.rb
+      ruby/test_call.rb
+      test_shellwords.rb
     ].flat_map do |path|
       if path.end_with?('.rb')
         path
@@ -209,6 +210,7 @@ task :cruby_tests do
   end
   include_paths << ' -Ivendored-minitest'
 
+  files << 'filters'
   requires = files.map{|f| "require '#{f}'"}
   filename = 'tmp/cruby_tests.rb'
   js_filename = 'tmp/cruby_tests.js'
